@@ -54,6 +54,13 @@ public final class SystemConstants {
 	public static final String cTestCaseTypePos = "POSITIVE";
 	public static final String cTestCaseTypeNeg = "NEGATIVE";
 	
+	public static final String cDATATYPE = "DATATYPE";
+	public static final String cSPName = "SPName";
+	public static final String cSPType = "SPType";
+	public static final String cSPParamCount = "SPParamCount";
+	public static final String cSPParamList = "SPParamList";
+	public static final String cSPInput = "SPInput";
+	
 	public static final String cQueryTestCaseDetails = "SELECT SP.NAME,SP.PARAM_COUNT,SP.PARAM_LIST,SP.TYPE,"
 			+ "Test.ROW_ID,Test.STATUS,Test.SCENARIO,Test.ERROR_CODE,"
 			+"Test.SAMPLE_INPUT,errCode.ERROR_MESSAGE"

@@ -18,38 +18,44 @@ public class PostExecuteAdapter {
 
 	@RequestMapping(value = "/ExecuteAdapterPost", method = RequestMethod.POST)
 	public @ResponseBody AdapterOutput addStudent(@RequestBody Map<String, Object> inputParam) {
-		
+
 		Map<String, String> ConfigSetting = new HashMap<String, String>();
 		LoadApplicationSettings appSetting = new LoadApplicationSettings();
 		ConfigSetting = appSetting.GetConfigSettings();
 
-		String StoreProcName = (String) inputParam.get("SPName");
-		String StoreProcType = (String) inputParam.get("SPType");
-		int StoreProcParamCnt = (int) inputParam.get("SPParamCount");
-
+		String StoreProcName = (String) inputParam.get(SystemConstants.cSPName);
+		String StoreProcType = (String) inputParam.get(SystemConstants.cSPType);
+		int StoreProcParamCnt = (int) inputParam.get(SystemConstants.cSPParamCount);
+		
+		
 		// Object SPParamList = (Object) inputParam.get("SPParamList");
 
-		LogDetails.LogDetailApplication(StoreProcName);
-		LogDetails.LogDetailApplication(StoreProcType);
-		LogDetails.LogDetailApplication(Integer.toString(StoreProcParamCnt));
-		Map<String, Object> SPParamListObj = (HashMap<String, Object>) inputParam.get("SPParamList");
+		LogDetails.LogDetailApplication(StoreProcName, ConfigSetting.get(SystemConstants.cEnableLog_3));
+		LogDetails.LogDetailApplication(StoreProcType, ConfigSetting.get(SystemConstants.cEnableLog_3));
+		LogDetails.LogDetailApplication(Integer.toString(StoreProcParamCnt),
+				ConfigSetting.get(SystemConstants.cEnableLog_3));
+		Map<String, Object> SPParamListObj = (HashMap<String, Object>) inputParam.get(SystemConstants.cSPParamList);
 
-		LogDetails.LogDetailApplication("SPParamListObj");
-		Map<String, String> SPParamListMSISDN = (HashMap<String, String>) SPParamListObj.get("MSISDN");
-		LogDetails.LogDetailApplication("SPParamListMSISDN");
-		String parameters = (String) SPParamListMSISDN.get("TYPE");
-		LogDetails.LogDetailApplication("parameters : " + parameters);
-		Map<String, String> SPInput = (HashMap<String, String>) inputParam.get("SPInput");
-		LogDetails.LogDetailApplication("SPInput");
+		// LogDetails.LogDetailApplication("SPParamListObj");
+		// Map<String, String> SPParamListMSISDN = (HashMap<String, String>)
+		// SPParamListObj.get("MSISDN");
+		// LogDetails.LogDetailApplication("SPParamListMSISDN");
+		// String parameters = (String) SPParamListMSISDN.get("TYPE");
+		// LogDetails.LogDetailApplication("parameters : " + parameters);
+		Map<String, String> SPInput = (HashMap<String, String>) inputParam.get(SystemConstants.cSPInput);
+
+		// LogDetails.LogDetailApplication("SPInput");
 
 		String SPExecuteSting = null;
 
 		if (StoreProcParamCnt > 0) {
-			SPExecuteSting = "{call " + StoreProcName + "(" + ManageTestCase.GetParamString(StoreProcParamCnt, "Y")
+			SPExecuteSting = "{call " + StoreProcName + "("
+					+ ManageTestCase.GetParamString(StoreProcParamCnt, ConfigSetting.get(SystemConstants.cEnableLog_4))
 					+ ")}";
 		} else {
 			SPExecuteSting = "{call " + StoreProcName + "()}";
 		}
+		LogDetails.LogDetailApplication("SPExecuteSting : ", ConfigSetting.get(SystemConstants.cEnableLog_3));
 
 		StoreProcTestCase TestCase = new StoreProcTestCase();
 
@@ -57,13 +63,18 @@ public class PostExecuteAdapter {
 		for (Map.Entry<String, Object> entry : SPParamListObj.entrySet()) {
 			String ParamName = entry.getKey();
 			Map<String, String> ParamDetails = (HashMap<String, String>) entry.getValue();
-			String ParamType = ParamDetails.get("TYPE");
-			String ParamDataType = ParamDetails.get("DATATYPE");
-			String PramValue = "#";
-			if (ParamType.equalsIgnoreCase("IN")) {
-				PramValue = SPInput.get(ParamName);
+			String ParamType = ParamDetails.get(SystemConstants.cTYPE);
+			String ParamDataType = ParamDetails.get(SystemConstants.cDATATYPE);
+			String ParamValue = SystemConstants.cHASH_VALUE;
+			if (ParamType.equalsIgnoreCase(SystemConstants.cParamTypeIN)) {
+				ParamValue = SPInput.get(ParamName);
 			}
-			StoreProcParam Case = new StoreProcParam(ParamName, ParamDataType, ParamType, PramValue);
+			StoreProcParam Case = new StoreProcParam(ParamName, ParamDataType, ParamType, ParamValue);
+			LogDetails
+					.LogDetailApplication(
+							"ParamName : " + ParamName + " : ParamDataType " + ParamDataType + " : ParamType "
+									+ ParamType + " : ParamValue" + ParamValue,
+							ConfigSetting.get(SystemConstants.cEnableLog_3));
 
 			TCase.put(ParamName, Case);
 		}
