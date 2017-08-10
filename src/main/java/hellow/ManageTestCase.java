@@ -100,7 +100,7 @@ public class ManageTestCase {
 		return TestCase;
 	}
 
-	public String GetParamString(int Count, String EnableLog) {
+	public static final String GetParamString(int Count, String EnableLog) {
 		int tCount = 0;
 		String ParamString = "";
 		while (tCount != Count) {
