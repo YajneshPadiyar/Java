@@ -5,21 +5,21 @@ import java.util.List;
 
 public class ListofRecordSet {
 
-	private List<ValuePair> ListofRecords = new ArrayList<ValuePair>();
+	private List<RowSet> ListofRecords = new ArrayList<RowSet>();
 	
 	public ListofRecordSet(){
 		
 	}
 	
-	public List<ValuePair> getListValuePair() {
+	public List<RowSet> getListValuePair() {
 		return ListofRecords;
 	}
 
-	public void setListValuePair(List<ValuePair> listValuePair) {
+	public void setListValuePair(List<RowSet> listValuePair) {
 		ListofRecords = listValuePair;
 	}
 	
-	public void addListValuePair(ValuePair RecordsSet){
+	public void addListValuePair(RowSet RecordsSet){
 		this.ListofRecords.add(RecordsSet);
 	}
 	

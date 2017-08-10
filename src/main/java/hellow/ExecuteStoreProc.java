@@ -203,7 +203,7 @@ public class ExecuteStoreProc {
 		// HashMap<String, ListofRecordSet> CurosrSet = new HashMap<String,
 		// ListofRecordSet>();
 		ListofCursorSet CursorSet = new ListofCursorSet();
-		ValuePair VarcharOutSet = new ValuePair();
+		RowSet VarcharOutSet = new RowSet();
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -272,7 +272,7 @@ public class ExecuteStoreProc {
 					while (isRecord) {
 						// HashMap<String,String> ListKeyPair = new
 						// HashMap<String,String>();
-						ValuePair Row = new ValuePair();
+						RowSet Row = new RowSet();
 						for (int i = 1; i <= CursorRecordCnt; i++) {
 							LogDetails.LogDetailApplication(CursorRecordsDef.getColumnName(i),
 									ConfigSetting.get(SystemConstants.cEnableLog_2));

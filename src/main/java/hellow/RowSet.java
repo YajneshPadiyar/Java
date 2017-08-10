@@ -2,11 +2,11 @@ package hellow;
 
 import java.util.HashMap;
 
-public class ValuePair {
+public class RowSet {
 
 	private HashMap<String, String> RecordsSet = new HashMap<String, String>();
 
-	public ValuePair() {
+	public RowSet() {
 	}
 
 	public HashMap<String, String> getHValuePair() {

@@ -2,22 +2,22 @@ package hellow;
 /*Test Commit 2*/
 public class AdapterOutput {
 
-	private ValuePair Output = new ValuePair();
+	private RowSet Output = new RowSet();
 	private ListofCursorSet CursorOutput = new ListofCursorSet();
 
 	public AdapterOutput() {
 	}
 
-	public AdapterOutput(ValuePair Output, ListofCursorSet CursorOutput) {
+	public AdapterOutput(RowSet Output, ListofCursorSet CursorOutput) {
 		this.CursorOutput = CursorOutput;
 		this.Output = Output;
 	}
 
-	public ValuePair getOutput() {
+	public RowSet getOutput() {
 		return Output;
 	}
 
-	public void setOutput(ValuePair output) {
+	public void setOutput(RowSet output) {
 		this.Output = output;
 	}
 

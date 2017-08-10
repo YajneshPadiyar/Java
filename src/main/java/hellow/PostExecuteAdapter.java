@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PostExecuteAdapter {
-	@RequestMapping(value = "/InitAdapter", method = RequestMethod.GET)
-	public @ResponseBody ExecuteAdapterParam student() {
-		return new ExecuteAdapterParam("student", "command", new HashMap<String, String>());
-	}
+	
 
 	@RequestMapping(value = "/ExecuteAdapterPost", method = RequestMethod.POST)
 	public @ResponseBody AdapterOutput addStudent(@RequestBody Map<String, Object> inputParam) {
@@ -57,9 +54,9 @@ public class PostExecuteAdapter {
 		}
 		LogDetails.LogDetailApplication("SPExecuteSting : ", ConfigSetting.get(SystemConstants.cEnableLog_3));
 
-		StoreProcTestCase TestCase = new StoreProcTestCase();
+		StoreProcTestCase SPDetails = new StoreProcTestCase();
 
-		Map<String, StoreProcParam> TCase = new HashMap<String, StoreProcParam>();
+		Map<String, StoreProcParam> ParamDetailsList = new HashMap<String, StoreProcParam>();
 		for (Map.Entry<String, Object> entry : SPParamListObj.entrySet()) {
 			String ParamName = entry.getKey();
 			Map<String, String> ParamDetails = (HashMap<String, String>) entry.getValue();
@@ -76,16 +73,16 @@ public class PostExecuteAdapter {
 									+ ParamType + " : ParamValue" + ParamValue,
 							ConfigSetting.get(SystemConstants.cEnableLog_3));
 
-			TCase.put(ParamName, Case);
+			ParamDetailsList.put(ParamName, Case);
 		}
 
-		TestCase.setSPName(StoreProcName);
-		TestCase.setSPExecuteSting(SPExecuteSting);
-		TestCase.setSPType(StoreProcType);
-		TestCase.setParams(TCase);
+		SPDetails.setSPName(StoreProcName);
+		SPDetails.setSPExecuteSting(SPExecuteSting);
+		SPDetails.setSPType(StoreProcType);
+		SPDetails.setParams(ParamDetailsList);
 		AdapterOutput lAdapterOutput = new AdapterOutput();
 		ExecuteStoreProc ExeSP = new ExecuteStoreProc();
-		lAdapterOutput = ExeSP.ExecuteStoreProcCURSOR(ConfigSetting, TestCase);
+		lAdapterOutput = ExeSP.ExecuteStoreProcCURSOR(ConfigSetting, SPDetails);
 
 		return lAdapterOutput;
 	}
