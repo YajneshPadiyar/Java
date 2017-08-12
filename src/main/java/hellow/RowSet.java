@@ -9,7 +9,7 @@ public class RowSet {
 	public RowSet() {
 	}
 
-	public HashMap<String, String> getHValuePair() {
+	public HashMap<String, String> getValuePair() {
 		return RecordsSet;
 	}
 

@@ -15,8 +15,8 @@ public class ListofRecordSet {
 		return ListofRecords;
 	}
 
-	public void setListValuePair(List<RowSet> listValuePair) {
-		ListofRecords = listValuePair;
+	public void setListValuePair(List<RowSet> ListofRecords) {
+		this.ListofRecords = ListofRecords;
 	}
 	
 	public void addListValuePair(RowSet RecordsSet){

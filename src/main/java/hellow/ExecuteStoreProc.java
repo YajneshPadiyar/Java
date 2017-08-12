@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -18,13 +19,15 @@ import oracle.jdbc.OracleTypes;
 import oracle.xdb.XMLType;
 
 public class ExecuteStoreProc {
-
+	static Logger log = Logger.getLogger(ExecuteStoreProc.class.getName());
 	public void ExecuteStoreProcXML(Map<String, String> ConfigSetting, StoreProcTestCase TestCase) {
 		Connection con = null;
 		String ConnectString = ConfigSetting.get(SystemConstants.cUserName) + "/"
 				+ ConfigSetting.get(SystemConstants.cPassword) + "@" + ConfigSetting.get(SystemConstants.cHost) + ":"
 				+ ConfigSetting.get(SystemConstants.cPort) + "/" + ConfigSetting.get(SystemConstants.cServiceName);
+		
 		LogDetails.LogDetailGeneral(ConnectString, ConfigSetting.get(SystemConstants.cEnableLog_4));
+		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(
@@ -270,8 +273,6 @@ public class ExecuteStoreProc {
 					ListofRecordSet LRecordSet = new ListofRecordSet();
 					
 					while (isRecord) {
-						// HashMap<String,String> ListKeyPair = new
-						// HashMap<String,String>();
 						RowSet Row = new RowSet();
 						for (int i = 1; i <= CursorRecordCnt; i++) {
 							LogDetails.LogDetailApplication(CursorRecordsDef.getColumnName(i),

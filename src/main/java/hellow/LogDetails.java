@@ -29,4 +29,7 @@ public final class LogDetails {
 		if (EnableLog.equalsIgnoreCase("Y"))
 		System.out.println(LogValue);
 	}
+	
+	//Logger Log = Logger.getLogger("hellow");
+	
 }

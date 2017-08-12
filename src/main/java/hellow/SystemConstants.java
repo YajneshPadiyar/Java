@@ -1,10 +1,15 @@
 package hellow;
 
+import java.util.Map;
+
+import org.apache.log4j.Level;
+
 public final class SystemConstants {
 	public static final String cEnableLog_1 = "EnableLog_1";
 	public static final String cEnableLog_2 = "EnableLog_2";
 	public static final String cEnableLog_3 = "EnableLog_3";
 	public static final String cEnableLog_4 = "EnableLog_4";
+	public static final String cEnableLogLevel = "EnableLogLevel";
 	public static final String cConfigLoaded = "ConfigLoaded";
 
 	public static final String cHost = "SPHost";
@@ -66,5 +71,39 @@ public final class SystemConstants {
 			+"Test.SAMPLE_INPUT,errCode.ERROR_MESSAGE"
 			+ " FROM y_test_cases Test,y_sp_defination SP, y_error_codes errCode "+
 			"WHERE Test.STORED_PROC_NAME = SP.NAME AND errCode.ERROR_CODE = Test.ERROR_CODE AND SP.TYPE='CURSOR'";
+	
+	
+	public static final Level getLogLevel(Map<String,String> ConfigSettings){
+		String LogLevel = ConfigSettings.get(cEnableLogLevel);
+		
+		return getLogLevel(LogLevel);
+	}
+	public static final Level getLogLevel(String LogLevel){
+		//String LogLevel = ConfigSettings.get(cEnableLogLevel);
+		Level lvl;
+		switch(LogLevel){
+		case "0":
+			lvl = Level.OFF;
+			break;
+		case "1":
+			lvl = Level.ERROR;
+			break;
+		case "2":
+			lvl = Level.INFO;
+			break;
+		case "3":
+			lvl = Level.DEBUG;
+			break;
+		case "4":
+			lvl = Level.WARN;
+			break;
+		case "5":
+			lvl = Level.TRACE;
+			break;
+		default:
+			lvl = Level.OFF;
+		}
+		return lvl;
+	}
 
 }
